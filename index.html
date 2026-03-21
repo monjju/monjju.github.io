@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juan Diego Monje — DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #0f0f18;
+      --surface: #13131f;
+      --border: #1e1e30;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); line-height: 1.6; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(10,10,15,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--sans); font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+    .nav-logo span { color: var(--text); }
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; z-index: 1; }
+    .hero-content { max-width: 800px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); font-size: 0.75rem; padding: 0.35rem 0.9rem; border-radius: 2px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero h1 { font-family: var(--sans); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem; }
+    .hero h1 .name { color: var(--text); display: block; }
+    .hero h1 .role { color: transparent; -webkit-text-stroke: 1px var(--accent); display: block; }
+    .hero-desc { font-size: 1rem; color: var(--muted); max-width: 540px; margin-bottom: 3rem; line-height: 1.8; }
+    .hero-desc span { color: var(--accent); }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--bg); padding: 0.85rem 2rem; font-family: var(--mono); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+    .btn-primary:hover { background: #33ddff; transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); padding: 0.85rem 2rem; font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.05em; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .terminal { position: absolute; right: 3rem; top: 50%; transform: translateY(-50%); width: 400px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; font-size: 0.8rem; }
+    @media (max-width: 1100px) { .terminal { display: none; } }
+    .terminal-bar { background: var(--bg2); padding: 0.7rem 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--border); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; } .dot-y { background: #ffbd2e; } .dot-g { background: #28c840; }
+    .terminal-title { margin-left: 0.5rem; color: var(--muted); font-size: 0.75rem; }
+    .terminal-body { padding: 1.2rem; line-height: 2; }
+    .t-prompt { color: var(--accent3); } .t-cmd { color: var(--text); } .t-out { color: var(--muted); padding-left: 1.2rem; } .t-success { color: var(--accent3); padding-left: 1.2rem; }
+    .cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent); animation: blink 1s infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    section { position: relative; z-index: 1; padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--sans); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 3rem; }
+    .section-title span { color: var(--accent); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .skill-card { background: var(--surface); padding: 1.8rem; transition: background 0.2s; }
+    .skill-card:hover { background: var(--bg2); }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-name { font-family: var(--sans); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .tag { background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.15); color: var(--muted); font-size: 0.7rem; padding: 0.2rem 0.6rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+    .project-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-num { font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 1rem; }
+    .project-title { font-family: var(--sans); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
+    .project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .stack-tag { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.25); color: #a78bfa; font-size: 0.7rem; padding: 0.2rem 0.6rem; }
+    .project-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--accent3); letter-spacing: 0.1em; }
+    .project-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .project-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; margin-top: 1rem; display: inline-block; }
+    .project-link:hover { color: var(--accent); }
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .cert-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; display: flex; align-items: center; gap: 1rem; transition: border-color 0.2s; }
+    .cert-card:hover { border-color: rgba(0,212,255,0.3); }
+    .cert-icon { width: 40px; height: 40px; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .cert-name { font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: var(--text); }
+    .cert-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-text { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-link { display: flex; align-items: center; gap: 0.75rem; color: var(--muted); text-decoration: none; font-size: 0.85rem; padding: 0.8rem 1rem; background: var(--surface); border: 1px solid var(--border); transition: all 0.2s; }
+    .contact-link:hover { border-color: rgba(0,212,255,0.3); color: var(--accent); }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 3rem; }
+    footer { position: relative; z-index: 1; padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.7s forwards; }
+    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    .fade-in:nth-child(4) { animation-delay: 0.4s; }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } nav ul { display: none; } .hero { padding: 6rem 1.5rem 3rem; } section { padding: 4rem 1.5rem; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">Juan Diego<span>.devops</span></div>
+    <ul>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#certs">Certs</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-tag fade-in">Disponible para trabajar</div>
+      <h1 class="fade-in">
+        <span class="name">Juan Diego Monje</span>
+        <span class="role">DevOps Engineer</span>
+      </h1>
+      <p class="hero-desc fade-in">
+        Sysadmin en transición a <span>DevOps</span>. Construyo plataformas reales con
+        <span>Kubernetes</span>, <span>Terraform</span> y <span>CI/CD</span>.
+        Aprendo haciendo — cada proyecto es un problema real resuelto.
+      </p>
+      <div class="hero-ctas fade-in">
+        <a href="#projects" class="btn-primary">Ver proyectos</a>
+        <a href="#contact" class="btn-secondary">Contactar</a>
+      </div>
+    </div>
+    <div class="terminal fade-in">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="terminal-title">~/devops-platform</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">kubectl get pods -A</span></div>
+        <div class="t-success">✓ devops-platform-1 Running</div>
+        <div class="t-success">✓ devops-platform-2 Running</div>
+        <div class="t-success">✓ devops-platform-3 Running</div>
+        <br/>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">kubectl get hpa</span></div>
+        <div class="t-out">cpu: 5%/50% replicas: 3/6</div>
+        <br/>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">curl devops-platform.local/health</span></div>
+        <div class="t-success">✓ {"status": "ok"}</div>
+        <br/>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd"><span class="cursor"></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <section id="skills">
+    <div class="section-label">// 01 — STACK</div>
+    <h2 class="section-title">Tecnologías & <span>Herramientas</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-icon">⎈</div><div class="skill-name">Kubernetes & Containers</div><div class="skill-tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">k3d</span></div></div>
+      <div class="skill-card"><div class="skill-icon">☁</div><div class="skill-name">Cloud & IaC</div><div class="skill-tags"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">Terraform</span></div></div>
+      <div class="skill-card"><div class="skill-icon">⚙</div><div class="skill-name">CI/CD & GitOps</div><div class="skill-tags"><span class="tag">GitHub Actions</span><span class="tag">ArgoCD</span><span class="tag">GitOps</span></div></div>
+      <div class="skill-card"><div class="skill-icon">◉</div><div class="skill-name">Observabilidad</div><div class="skill-tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span></div></div>
+      <div class="skill-card"><div class="skill-icon">🖥</div><div class="skill-name">Sistemas</div><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">Active Directory</span></div></div>
+      <div class="skill-card"><div class="skill-icon">≡</div><div class="skill-name">Scripting</div><div class="skill-tags"><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">Git</span></div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <div class="section-label">// 02 — PROYECTOS</div>
+    <h2 class="section-title">Lo que he <span>construido</span></h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">PROYECTO 01</div>
+        <div class="project-title">Kubernetes Platform</div>
+        <p class="project-desc">Plataforma cloud-native completa con app Python/Flask, 3 réplicas con load balancing, HPA autoscaling, Ingress y stack de observabilidad completo (Prometheus + Grafana + Loki).</p>
+        <div class="project-stack">
+          <span class="stack-tag">Kubernetes</span><span class="stack-tag">Docker</span><span class="stack-tag">Helm</span><span class="stack-tag">Prometheus</span><span class="stack-tag">Grafana</span><span class="stack-tag">Loki</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <a href="https://github.com/monjju/DevOps-Platform" class="project-link" target="_blank">→ Ver en GitHub</a>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROYECTO 02</div>
+        <div class="project-title">CI/CD Pipeline DevSecOps</div>
+        <p class="project-desc">Pipeline completo con GitHub Actions: lint, tests, build Docker multi-stage, scan con Trivy, firma con Cosign y deploy automático a Kubernetes.</p>
+        <div class="project-stack">
+          <span class="stack-tag">GitHub Actions</span><span class="stack-tag">Trivy</span><span class="stack-tag">Cosign</span><span class="stack-tag">ArgoCD</span>
+        </div>
+        <div class="project-status" style="color:#f59e0b">En construcción</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROYECTO 03</div>
+        <div class="project-title">AWS Infrastructure as Code</div>
+        <p class="project-desc">Infraestructura AWS completa con Terraform: VPC multi-AZ, EKS cluster, RDS, IAM roles y remote state en S3 con DynamoDB locking.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Terraform</span><span class="stack-tag">AWS</span><span class="stack-tag">EKS</span><span class="stack-tag">VPC</span>
+        </div>
+        <div class="project-status" style="color:#f59e0b">En construcción</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="certs">
+    <div class="section-label">// 03 — CERTIFICACIONES</div>
+    <h2 class="section-title">Formación & <span>Certificados</span></h2>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-icon">🐧</div><div><div class="cert-name">LFS258: Kubernetes Fundamentals</div><div class="cert-sub">The Linux Foundation · 2021</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🐧</div><div><div class="cert-name">LFS253: Containers Fundamentals</div><div class="cert-sub">The Linux Foundation · 2021</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🐧</div><div><div class="cert-name">LFS169: Introduction to GitOps</div><div class="cert-sub">The Linux Foundation · 2022</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🐧</div><div><div class="cert-name">DevOps & SRE Fundamentals</div><div class="cert-sub">The Linux Foundation · 2021</div></div></div>
+      <div class="cert-card"><div class="cert-icon">☁️</div><div><div class="cert-name">Google Cloud Infrastructure</div><div class="cert-sub">Google Cloud · 2022</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🔒</div><div><div class="cert-name">Google Cybersecurity Certificate</div><div class="cert-sub">Coursera · 2024</div></div></div>
+      <div class="cert-card"><div class="cert-icon">⚙</div><div><div class="cert-name">Building Cloud Native Apps</div><div class="cert-sub">QA North America · 2023</div></div></div>
+      <div class="cert-card"><div class="cert-icon">⎈</div><div><div class="cert-name">CKA — En progreso</div><div class="cert-sub">Linux Foundation · 2025</div></div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="contact">
+    <div class="section-label">// 04 — CONTACTO</div>
+    <h2 class="section-title">Hablemos de <span>oportunidades</span></h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-text">Sysadmin con experiencia en IT Support y administración de sistemas Linux/Windows, en transición activa hacia DevOps. Construyo proyectos reales para demostrar mis habilidades con código, no solo certificados.<br/><br/>Disponible para roles junior DevOps / Platform Engineer — remoto o presencial en España.</p>
+        <a href="mailto:Juandieji@gmail.com" class="btn-primary">Enviar email</a>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/monjju" class="contact-link" target="_blank"><span>⌥</span> github.com/monjju</a>
+        <a href="https://linkedin.com/in/juan-monje-pulecio" class="contact-link" target="_blank"><span>◈</span> linkedin.com/in/juan-monje-pulecio</a>
+        <a href="mailto:Juandieji@gmail.com" class="contact-link"><span>◎</span> Juandieji@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Juan Diego Monje — DevOps Engineer</span>
+    <span style="color: var(--accent)">Construido con código. Sin frameworks.</span>
+  </footer>
+</body>
+</html>
