@@ -190,7 +190,7 @@
         <div class="project-stack">
           <span class="stack-tag">GitHub Actions</span><span class="stack-tag">Trivy</span><span class="stack-tag">Cosign</span><span class="stack-tag">ArgoCD</span>
         </div>
-        <div class="project-status" style="color:#f59e0b">En construcción</div>
+        <div class="project-status done">Completado</div>
       </div>
       <div class="project-card">
         <div class="project-num">PROYECTO 03</div>
@@ -199,7 +199,52 @@
         <div class="project-stack">
           <span class="stack-tag">Terraform</span><span class="stack-tag">AWS</span><span class="stack-tag">EKS</span><span class="stack-tag">VPC</span>
         </div>
-        <div class="project-status" style="color:#f59e0b">En construcción</div>
+        <div class="project-status done">Completado</div>
+      </div>
+      <div class="project-card" onclick="toggleDetail('p4')">
+        <div class="project-num">PROYECTO 04</div>
+        <div class="project-title">GitOps con ArgoCD</div>
+        <p class="project-desc">El proyecto que conecta todo lo anterior. Cada push desencadena el pipeline completo y ArgoCD despliega automáticamente al cluster. Rollback con un simple git revert.</p>
+        <div class="project-stack">
+          <span class="stack-tag">ArgoCD</span>
+          <span class="stack-tag">Kustomize</span>
+          <span class="stack-tag">Helm</span>
+          <span class="stack-tag">GitHub Actions</span>
+          <span class="stack-tag">k3d</span>
+        </div>
+        <div class="project-status done">Completado</div>
+        <button class="expand-btn" id="btn-p4">[ + ver detalle ]</button>
+        <div class="project-detail" id="p4">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>Cluster k3d con ArgoCD instalado via Helm</li>
+              <li>Estructura Kustomize con base + overlays para dev y staging</li>
+              <li>ArgoCD Applications conectadas al repo de GitHub</li>
+              <li>Stage deploy en GitHub Actions que actualiza el tag automáticamente</li>
+              <li>Rollback demostrado con git revert — ArgoCD sincroniza en segundos</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>selfHeal: true — ArgoCD revierte cualquier cambio manual en el cluster</li>
+              <li>prune: true — recursos eliminados de Git desaparecen del cluster</li>
+              <li>Kustomize overlays — mismo base para dev y staging sin duplicar YAMLs</li>
+              <li>github-actions[bot] actualiza el tag — nadie toca el cluster a mano</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>GitOps no es una herramienta, es una forma de pensar</li>
+              <li>El cluster es un reflejo de Git, no al revés</li>
+              <li>El rollback más simple del mundo: git revert + git push</li>
+              <li>selfHeal es la killer feature — nadie puede romper producción con un kubectl accidental</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-4-gitops" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
       </div>
     </div>
   </section>
