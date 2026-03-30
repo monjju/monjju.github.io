@@ -7,17 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #0a0a0f;
-      --bg2: #0f0f18;
-      --surface: #13131f;
-      --border: #1e1e30;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --accent3: #10b981;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'Syne', sans-serif;
+      --bg: #0a0a0f; --bg2: #0f0f18; --surface: #13131f; --border: #1e1e30;
+      --accent: #00d4ff; --accent2: #7c3aed; --accent3: #10b981;
+      --text: #e2e8f0; --muted: #64748b;
+      --mono: 'JetBrains Mono', monospace; --sans: 'Syne', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -66,7 +59,7 @@
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
     .tag { background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.15); color: var(--muted); font-size: 0.7rem; padding: 0.2rem 0.6rem; }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-    .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; cursor: pointer; }
     .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
     .project-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
     .project-card:hover::before { transform: scaleX(1); }
@@ -79,6 +72,15 @@
     .project-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
     .project-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; margin-top: 1rem; display: inline-block; }
     .project-link:hover { color: var(--accent); }
+    .expand-btn { font-size: 0.72rem; color: var(--accent); background: none; border: 1px solid rgba(0,212,255,0.2); cursor: pointer; font-family: var(--mono); letter-spacing: 0.1em; padding: 0.3rem 0.8rem; margin-top: 1rem; display: block; transition: all 0.2s; }
+    .expand-btn:hover { background: rgba(0,212,255,0.08); border-color: var(--accent); }
+    .project-detail { display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .project-detail.open { display: block; }
+    .detail-section { margin-bottom: 1.2rem; }
+    .detail-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .detail-list { list-style: none; padding: 0; }
+    .detail-list li { font-size: 0.78rem; color: var(--muted); padding: 0.25rem 0 0.25rem 1rem; position: relative; line-height: 1.6; }
+    .detail-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; }
     .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
     .cert-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; display: flex; align-items: center; gap: 1rem; transition: border-color 0.2s; }
     .cert-card:hover { border-color: rgba(0,212,255,0.3); }
@@ -121,7 +123,7 @@
         <span class="role">DevOps Engineer</span>
       </h1>
       <p class="hero-desc fade-in">
-        Sysadmin en transición a <span>DevOps</span>. Construyo plataformas reales con
+        IT Support en transición a <span>DevOps</span>. Construyo plataformas reales con
         <span>Kubernetes</span>, <span>Terraform</span> y <span>CI/CD</span>.
         Aprendo haciendo — cada proyecto es un problema real resuelto.
       </p>
@@ -141,11 +143,12 @@
         <div class="t-success">✓ devops-platform-2 Running</div>
         <div class="t-success">✓ devops-platform-3 Running</div>
         <br/>
-        <div><span class="t-prompt">❯</span> <span class="t-cmd">kubectl get hpa</span></div>
-        <div class="t-out">cpu: 5%/50% replicas: 3/6</div>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">terraform apply tfplan</span></div>
+        <div class="t-success">✓ aws_vpc.main created</div>
+        <div class="t-success">✓ Apply complete! 8 resources added</div>
         <br/>
-        <div><span class="t-prompt">❯</span> <span class="t-cmd">curl devops-platform.local/health</span></div>
-        <div class="t-success">✓ {"status": "ok"}</div>
+        <div><span class="t-prompt">❯</span> <span class="t-cmd">argocd app get devops-platform</span></div>
+        <div class="t-success">✓ Health: Healthy — Sync: Synced</div>
         <br/>
         <div><span class="t-prompt">❯</span> <span class="t-cmd"><span class="cursor"></span></span></div>
       </div>
@@ -159,11 +162,186 @@
     <h2 class="section-title">Tecnologías & <span>Herramientas</span></h2>
     <div class="skills-grid">
       <div class="skill-card"><div class="skill-icon">⎈</div><div class="skill-name">Kubernetes & Containers</div><div class="skill-tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">k3d</span></div></div>
-      <div class="skill-card"><div class="skill-icon">☁</div><div class="skill-name">Cloud & IaC</div><div class="skill-tags"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">Terraform</span></div></div>
-      <div class="skill-card"><div class="skill-icon">⚙</div><div class="skill-name">CI/CD & GitOps</div><div class="skill-tags"><span class="tag">GitHub Actions</span><span class="tag">ArgoCD</span><span class="tag">GitOps</span></div></div>
-      <div class="skill-card"><div class="skill-icon">◉</div><div class="skill-name">Observabilidad</div><div class="skill-tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span></div></div>
+      <div class="skill-card"><div class="skill-icon">☁</div><div class="skill-name">Cloud & IaC</div><div class="skill-tags"><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">Terraform</span><span class="tag">LocalStack</span></div></div>
+      <div class="skill-card"><div class="skill-icon">⚙</div><div class="skill-name">CI/CD & GitOps</div><div class="skill-tags"><span class="tag">GitHub Actions</span><span class="tag">ArgoCD</span><span class="tag">Kustomize</span></div></div>
+      <div class="skill-card"><div class="skill-icon">◉</div><div class="skill-name">Seguridad</div><div class="skill-tags"><span class="tag">Trivy</span><span class="tag">Gitleaks</span><span class="tag">Cosign</span><span class="tag">IAM</span></div></div>
+      <div class="skill-card"><div class="skill-icon">◈</div><div class="skill-name">Observabilidad</div><div class="skill-tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span><span class="tag">OpenTelemetry</span></div></div>
       <div class="skill-card"><div class="skill-icon">🖥</div><div class="skill-name">Sistemas</div><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">Active Directory</span></div></div>
-      <div class="skill-card"><div class="skill-icon">≡</div><div class="skill-name">Scripting</div><div class="skill-tags"><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">Git</span></div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <div class="section-label">// 02 — PROYECTOS</div>
+    <h2 class="section-title">Lo que he <span>construido</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card" onclick="toggleDetail('p1')">
+        <div class="project-num">PROYECTO 01</div>
+        <div class="project-title">Kubernetes Platform</div>
+        <p class="project-desc">Plataforma cloud-native con app Python/Flask, 3 réplicas, HPA autoscaling, Ingress y observabilidad completa con Prometheus, Grafana y Loki.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Kubernetes</span><span class="stack-tag">Docker</span><span class="stack-tag">Helm</span><span class="stack-tag">Prometheus</span><span class="stack-tag">Grafana</span><span class="stack-tag">Loki</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <button class="expand-btn" id="btn-p1">[ + ver detalle ]</button>
+        <div class="project-detail" id="p1">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>App Python/Flask containerizada con Docker multi-stage</li>
+              <li>Deployment con 3 réplicas y rolling updates — zero downtime</li>
+              <li>HPA configurado — escala de 1 a 5 réplicas según CPU</li>
+              <li>Ingress como único punto de entrada al cluster</li>
+              <li>Prometheus + Grafana + Loki — métricas, dashboards y logs centralizados</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>k3d para simular Kubernetes en local sin coste</li>
+              <li>Helm para gestionar el stack de observabilidad</li>
+              <li>HPA sobre métricas reales de CPU, no valores fijos</li>
+              <li>Ingress con nginx — un solo punto de entrada para todo el tráfico</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>Diferencia práctica entre Deployment, Service e Ingress</li>
+              <li>Cómo funciona el autoscaling real en Kubernetes</li>
+              <li>Observabilidad no es un extra — es lo que permite operar</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-1-kubernetes" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetail('p2')">
+        <div class="project-num">PROYECTO 02</div>
+        <div class="project-title">CI/CD Pipeline DevSecOps</div>
+        <p class="project-desc">Pipeline de 5 stages con GitHub Actions: validate, build Docker multi-stage, security scan con Trivy + Gitleaks, firma con Cosign y deploy automático. Todo en verde.</p>
+        <div class="project-stack">
+          <span class="stack-tag">GitHub Actions</span><span class="stack-tag">Docker</span><span class="stack-tag">Trivy</span><span class="stack-tag">Gitleaks</span><span class="stack-tag">Cosign</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <button class="expand-btn" id="btn-p2">[ + ver detalle ]</button>
+        <div class="project-detail" id="p2">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>Stage 1 — Validate: lint y tests automáticos en cada push</li>
+              <li>Stage 2 — Build: imagen Docker multi-stage, mínima superficie de ataque</li>
+              <li>Stage 3 — Security: Trivy escanea CVEs + Gitleaks detecta secrets</li>
+              <li>Stage 4 — Sign: Cosign firma la imagen para garantizar integridad</li>
+              <li>Stage 5 — Deploy: actualiza el tag en Git para que ArgoCD despliegue</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>Seguridad integrada en el pipeline, no añadida al final</li>
+              <li>Multi-stage build — imagen final sin dependencias de desarrollo</li>
+              <li>Cosign — nadie puede modificar la imagen entre build y deploy</li>
+              <li>Gitleaks — secrets nunca llegan al repositorio</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>DevSecOps no es una herramienta, es una mentalidad en el pipeline</li>
+              <li>La firma de imágenes como garantía de supply chain security</li>
+              <li>Automatizar seguridad es más efectivo que revisiones manuales</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-2-cicd" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetail('p3')">
+        <div class="project-num">PROYECTO 03</div>
+        <div class="project-title">AWS Infrastructure as Code</div>
+        <p class="project-desc">Infraestructura AWS con Terraform modular: VPC multi-AZ, EKS cluster, RDS PostgreSQL, IAM roles y remote state en S3 con DynamoDB locking. Desarrollado con LocalStack.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Terraform</span><span class="stack-tag">AWS</span><span class="stack-tag">LocalStack</span><span class="stack-tag">EKS</span><span class="stack-tag">VPC</span><span class="stack-tag">RDS</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <button class="expand-btn" id="btn-p3">[ + ver detalle ]</button>
+        <div class="project-detail" id="p3">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>VPC con subnets públicas (Load Balancer) y privadas (EKS + RDS) en 2 AZs</li>
+              <li>EKS cluster con endpoint privado — API server nunca expuesto a internet</li>
+              <li>RDS PostgreSQL con cifrado, backups automáticos y acceso restringido</li>
+              <li>Remote state en S3 + DynamoDB locking para trabajo en equipo seguro</li>
+              <li>Módulos reutilizables: vpc, eks, rds — mismo código para cualquier entorno</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>Terraform modular — cada módulo independiente y reutilizable</li>
+              <li>LocalStack para desarrollo sin coste — código 100% compatible con AWS real</li>
+              <li>EKS y RDS en subnets privadas — mínima exposición por diseño</li>
+              <li>DynamoDB locking — state nunca corrompido en entornos de equipo</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>IaC no es opcional — infraestructura manual no escala ni se puede versionar</li>
+              <li>El remote state es crítico en equipos — el state local es un antipatrón</li>
+              <li>Seguridad por diseño: redes privadas, cifrado y mínimo privilegio desde el inicio</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-3-terraform" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetail('p4')">
+        <div class="project-num">PROYECTO 04</div>
+        <div class="project-title">GitOps con ArgoCD</div>
+        <p class="project-desc">El proyecto que conecta todo lo anterior. Cada push desencadena el pipeline completo y ArgoCD despliega automáticamente al cluster. Rollback con un simple git revert.</p>
+        <div class="project-stack">
+          <span class="stack-tag">ArgoCD</span><span class="stack-tag">Kustomize</span><span class="stack-tag">Helm</span><span class="stack-tag">GitHub Actions</span><span class="stack-tag">k3d</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <button class="expand-btn" id="btn-p4">[ + ver detalle ]</button>
+        <div class="project-detail" id="p4">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>Cluster k3d con ArgoCD instalado via Helm</li>
+              <li>Estructura Kustomize con base + overlays para dev y staging</li>
+              <li>ArgoCD Applications conectadas al repo de GitHub</li>
+              <li>Stage deploy en GitHub Actions que actualiza el tag automáticamente</li>
+              <li>Rollback demostrado con git revert — ArgoCD sincroniza en segundos</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>selfHeal: true — ArgoCD revierte cualquier cambio manual en el cluster</li>
+              <li>prune: true — recursos eliminados de Git desaparecen del cluster</li>
+              <li>Kustomize overlays — mismo base para dev y staging sin duplicar YAMLs</li>
+              <li>github-actions[bot] actualiza el tag — nadie toca el cluster a mano</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>GitOps no es una herramienta, es una forma de pensar</li>
+              <li>El cluster es un reflejo de Git, no al revés</li>
+              <li>El rollback más simple del mundo: git revert + git push</li>
+              <li>selfHeal es la killer feature — nadie puede romper producción con un kubectl accidental</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-4-gitops" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
+      </div>
+
       <div class="project-card" onclick="toggleDetail('p5')">
         <div class="project-num">PROYECTO 05</div>
         <div class="project-title">Observabilidad Avanzada con OpenTelemetry</div>
@@ -201,95 +379,13 @@
               <li>La correlación entre señales es el verdadero valor — no las herramientas por separado</li>
               <li>OpenTelemetry es el estándar — aprendes una vez, funciona en cualquier stack</li>
               <li>ServiceMonitors requieren labels exactos — los detalles importan en producción</li>
-              <li>Los errores también se documentan — el health check de Loki falla por incompatibilidad de versiones, pero las queries funcionan</li>
+              <li>Los errores también se documentan — health check de Loki falla por versiones, pero las queries funcionan</li>
             </ul>
           </div>
           <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-5-observabilidad" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section id="projects">
-    <div class="section-label">// 02 — PROYECTOS</div>
-    <h2 class="section-title">Lo que he <span>construido</span></h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-num">PROYECTO 01</div>
-        <div class="project-title">Kubernetes Platform</div>
-        <p class="project-desc">Plataforma cloud-native completa con app Python/Flask, 3 réplicas con load balancing, HPA autoscaling, Ingress y stack de observabilidad completo (Prometheus + Grafana + Loki).</p>
-        <div class="project-stack">
-          <span class="stack-tag">Kubernetes</span><span class="stack-tag">Docker</span><span class="stack-tag">Helm</span><span class="stack-tag">Prometheus</span><span class="stack-tag">Grafana</span><span class="stack-tag">Loki</span>
-        </div>
-        <div class="project-status">Completado</div>
-        <a href="https://github.com/monjju/DevOps-Platform" class="project-link" target="_blank">→ Ver en GitHub</a>
-      </div>
-      <div class="project-card">
-        <div class="project-num">PROYECTO 02</div>
-        <div class="project-title">CI/CD Pipeline DevSecOps</div>
-        <p class="project-desc">Pipeline completo con GitHub Actions: lint, tests, build Docker multi-stage, scan con Trivy, firma con Cosign y deploy automático a Kubernetes.</p>
-        <div class="project-stack">
-          <span class="stack-tag">GitHub Actions</span><span class="stack-tag">Trivy</span><span class="stack-tag">Cosign</span><span class="stack-tag">ArgoCD</span>
-        </div>
-        <div class="project-status done">Completado</div>
-      </div>
-      <div class="project-card">
-        <div class="project-num">PROYECTO 03</div>
-        <div class="project-title">AWS Infrastructure as Code</div>
-        <p class="project-desc">Infraestructura AWS completa con Terraform: VPC multi-AZ, EKS cluster, RDS, IAM roles y remote state en S3 con DynamoDB locking.</p>
-        <div class="project-stack">
-          <span class="stack-tag">Terraform</span><span class="stack-tag">AWS</span><span class="stack-tag">EKS</span><span class="stack-tag">VPC</span>
-        </div>
-        <div class="project-status done">Completado</div>
-      </div>
-      <div class="project-card" onclick="toggleDetail('p4')">
-        <div class="project-num">PROYECTO 04</div>
-        <div class="project-title">GitOps con ArgoCD</div>
-        <p class="project-desc">El proyecto que conecta todo lo anterior. Cada push desencadena el pipeline completo y ArgoCD despliega automáticamente al cluster. Rollback con un simple git revert.</p>
-        <div class="project-stack">
-          <span class="stack-tag">ArgoCD</span>
-          <span class="stack-tag">Kustomize</span>
-          <span class="stack-tag">Helm</span>
-          <span class="stack-tag">GitHub Actions</span>
-          <span class="stack-tag">k3d</span>
-        </div>
-        <div class="project-status done">Completado</div>
-        <button class="expand-btn" id="btn-p4">[ + ver detalle ]</button>
-        <div class="project-detail" id="p4">
-          <div class="detail-section">
-            <div class="detail-label">Qué se construyó</div>
-            <ul class="detail-list">
-              <li>Cluster k3d con ArgoCD instalado via Helm</li>
-              <li>Estructura Kustomize con base + overlays para dev y staging</li>
-              <li>ArgoCD Applications conectadas al repo de GitHub</li>
-              <li>Stage deploy en GitHub Actions que actualiza el tag automáticamente</li>
-              <li>Rollback demostrado con git revert — ArgoCD sincroniza en segundos</li>
-            </ul>
-          </div>
-          <div class="detail-section">
-            <div class="detail-label">Decisiones técnicas</div>
-            <ul class="detail-list">
-              <li>selfHeal: true — ArgoCD revierte cualquier cambio manual en el cluster</li>
-              <li>prune: true — recursos eliminados de Git desaparecen del cluster</li>
-              <li>Kustomize overlays — mismo base para dev y staging sin duplicar YAMLs</li>
-              <li>github-actions[bot] actualiza el tag — nadie toca el cluster a mano</li>
-            </ul>
-          </div>
-          <div class="detail-section">
-            <div class="detail-label">Lo aprendido</div>
-            <ul class="detail-list">
-              <li>GitOps no es una herramienta, es una forma de pensar</li>
-              <li>El cluster es un reflejo de Git, no al revés</li>
-              <li>El rollback más simple del mundo: git revert + git push</li>
-              <li>selfHeal es la killer feature — nadie puede romper producción con un kubectl accidental</li>
-            </ul>
-          </div>
-          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-4-gitops" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -306,7 +402,6 @@
       <div class="cert-card"><div class="cert-icon">☁️</div><div><div class="cert-name">Google Cloud Infrastructure</div><div class="cert-sub">Google Cloud · 2022</div></div></div>
       <div class="cert-card"><div class="cert-icon">🔒</div><div><div class="cert-name">Google Cybersecurity Certificate</div><div class="cert-sub">Coursera · 2024</div></div></div>
       <div class="cert-card"><div class="cert-icon">⚙</div><div><div class="cert-name">Building Cloud Native Apps</div><div class="cert-sub">QA North America · 2023</div></div></div>
-      <div class="cert-card"><div class="cert-icon">⎈</div><div><div class="cert-name">CKA — En progreso</div><div class="cert-sub">Linux Foundation · 2025</div></div></div>
     </div>
   </section>
 
@@ -317,12 +412,13 @@
     <h2 class="section-title">Hablemos de <span>oportunidades</span></h2>
     <div class="contact-grid">
       <div>
-        <p class="contact-text">Sysadmin con experiencia en IT Support y administración de sistemas Linux/Windows, en transición activa hacia DevOps. Construyo proyectos reales para demostrar mis habilidades con código, no solo certificados.<br/><br/>Disponible para roles junior DevOps / Platform Engineer — remoto o presencial en España.</p>
+        <p class="contact-text">IT Support y administración de sistemas Linux/Windows, en transición activa hacia DevOps. Construyo proyectos reales para demostrar mis habilidades, no solo certificados.<br/><br/>Disponible para roles junior DevOps — remoto o presencial en España.</p>
         <a href="mailto:Juandieji@gmail.com" class="btn-primary">Enviar email</a>
       </div>
       <div class="contact-links">
         <a href="https://github.com/monjju" class="contact-link" target="_blank"><span>⌥</span> github.com/monjju</a>
         <a href="https://linkedin.com/in/juan-monje-pulecio" class="contact-link" target="_blank"><span>◈</span> linkedin.com/in/juan-monje-pulecio</a>
+        <a href="https://www.credly.com/users/juan-diego-monje-pulecio" class="contact-link" target="_blank"><span>◈</span> credly.com/users/juan-diego-monje-pulecio</a>
         <a href="mailto:Juandieji@gmail.com" class="contact-link"><span>◎</span> Juandieji@gmail.com</a>
       </div>
     </div>
@@ -332,5 +428,15 @@
     <span>Juan Diego Monje — DevOps Engineer</span>
     <span style="color: var(--accent)">Construido con código. Sin frameworks.</span>
   </footer>
+
+  <script>
+    function toggleDetail(id) {
+      const detail = document.getElementById(id);
+      const btn = document.getElementById('btn-' + id);
+      const isOpen = detail.classList.contains('open');
+      detail.classList.toggle('open');
+      btn.textContent = isOpen ? '[ + ver detalle ]' : '[ - ocultar detalle ]';
+    }
+  </script>
 </body>
 </html>
