@@ -164,6 +164,50 @@
       <div class="skill-card"><div class="skill-icon">◉</div><div class="skill-name">Observabilidad</div><div class="skill-tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span></div></div>
       <div class="skill-card"><div class="skill-icon">🖥</div><div class="skill-name">Sistemas</div><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">Active Directory</span></div></div>
       <div class="skill-card"><div class="skill-icon">≡</div><div class="skill-name">Scripting</div><div class="skill-tags"><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">Git</span></div></div>
+      <div class="project-card" onclick="toggleDetail('p5')">
+        <div class="project-num">PROYECTO 05</div>
+        <div class="project-title">Observabilidad Avanzada con OpenTelemetry</div>
+        <p class="project-desc">El proyecto que cierra el ciclo. Stack completo de observabilidad con los 3 pilares: métricas, logs y trazas distribuidas correlacionadas por trace_id. Cuando algo falla, sabes dónde en minutos.</p>
+        <div class="project-stack">
+          <span class="stack-tag">OpenTelemetry</span><span class="stack-tag">Prometheus</span><span class="stack-tag">Grafana</span><span class="stack-tag">Loki</span><span class="stack-tag">Tempo</span><span class="stack-tag">Kubernetes</span>
+        </div>
+        <div class="project-status">Completado</div>
+        <button class="expand-btn" id="btn-p5">[ + ver detalle ]</button>
+        <div class="project-detail" id="p5">
+          <div class="detail-section">
+            <div class="detail-label">Qué se construyó</div>
+            <ul class="detail-list">
+              <li>App Flask instrumentada con OpenTelemetry SDK — trazas automáticas y manuales</li>
+              <li>OTel Collector como hub central — desacopla la app de los backends</li>
+              <li>Tempo para trazas distribuidas con waterfall view en Grafana</li>
+              <li>Prometheus scrapeando métricas via ServiceMonitor automáticamente</li>
+              <li>Loki centralizando logs con correlación por trace_id</li>
+              <li>4 endpoints instrumentados incluyendo simulación de errores para SLOs</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Decisiones técnicas</div>
+            <ul class="detail-list">
+              <li>OpenTelemetry vendor-neutral — cambiar de Tempo a Jaeger sin tocar el código</li>
+              <li>OTel Collector como hub — la app habla con un solo destino, el Collector enruta</li>
+              <li>Loki vs ElasticSearch — 10x más barato en recursos, indexa solo labels</li>
+              <li>ServiceMonitor para Prometheus — autodiscovery sin configuración manual</li>
+              <li>trace_id en logs — correlación directa entre trazas y logs en Grafana</li>
+            </ul>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Lo aprendido</div>
+            <ul class="detail-list">
+              <li>La correlación entre señales es el verdadero valor — no las herramientas por separado</li>
+              <li>OpenTelemetry es el estándar — aprendes una vez, funciona en cualquier stack</li>
+              <li>ServiceMonitors requieren labels exactos — los detalles importan en producción</li>
+              <li>Los errores también se documentan — el health check de Loki falla por incompatibilidad de versiones, pero las queries funcionan</li>
+            </ul>
+          </div>
+          <a href="https://github.com/monjju/DevOps-Platform/tree/main/proyecto-5-observabilidad" class="project-link" target="_blank" onclick="event.stopPropagation()">→ Ver en GitHub</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
